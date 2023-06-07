@@ -26,4 +26,8 @@ export class CrudServiceService {
   consultarDefinicionDataset(dto: IComboBox): Observable<any> {
     return this.http.post(URL_SERVER + APIS_URL.ConsultarSimilitudDataset, dto);
   }
+
+  eliminarArchivoDataset(): Observable<any> {
+    return this.http.get(URL_SERVER + APIS_URL.EliminarArchivoDataset);
+  }
 }

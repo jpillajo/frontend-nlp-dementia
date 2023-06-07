@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { IComboBox, IDataset, IEnfoques, ISimilitud } from 'src/app/models/Documento';
+import {
+  IComboBox,
+  IDataset,
+  IEnfoques,
+  ISimilitud,
+} from 'src/app/models/Documento';
 import { CrudServiceService } from 'src/app/services/crud-service.service';
 import { take } from 'rxjs/operators';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
@@ -7,9 +12,9 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-original-dataset',
   templateUrl: './original-dataset.component.html',
-  styles: []
+  styles: [],
 })
-export class OriginalDatasetComponent implements OnInit{
+export class OriginalDatasetComponent implements OnInit {
   listaSimilitudJaccard: IDataset[] = [];
   listaSimilitudCoseno: IDataset[] = [];
   cols: any[] = [];
@@ -18,14 +23,15 @@ export class OriginalDatasetComponent implements OnInit{
   enfoques: IEnfoques[] = [];
   nombreEnfoque: string | any;
 
-  constructor(private crudService: CrudServiceService,
-              private fb: FormBuilder
-  ) { }
+  constructor(
+    private crudService: CrudServiceService,
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit() {
     this.cols = [
       { field: 'id', header: 'Documento' },
-      { field: 'porcentaje', header: 'Porcentaje' }
+      { field: 'porcentaje', header: 'Porcentaje' },
     ];
     this.enfoques = [
       { nombre: 'BIO MEDICO', valor: 0 },
@@ -37,24 +43,25 @@ export class OriginalDatasetComponent implements OnInit{
 
   construirFormulario() {
     this.formGroup = this.fb.group({
-      enfoque: [null, Validators.required]
-    })
+      enfoque: [null, Validators.required],
+    });
   }
 
   obtenerDatasetOriginalEnfoque() {
     const dato = this.formGroup.controls['enfoque'].value;
     const dto: IComboBox = {
       id: dato,
-      valor: dato
-    }
+      valor: dato,
+    };
     this.crudService
-    .obtenerDataset(dto)
-    .pipe(take(1))
-    .subscribe((resultado) => {
-      this.mostrarTablas = true;
-      this.nombreEnfoque = "Está revisando el enfoque " + this.enfoques[dato].nombre;
-      this.listaSimilitudJaccard = resultado.jaccard;
-      this.listaSimilitudCoseno = resultado.coseno;
-    })
+      .obtenerDataset(dto)
+      .pipe(take(1))
+      .subscribe((resultado) => {
+        this.mostrarTablas = true;
+        this.nombreEnfoque =
+          'Está revisando el enfoque ' + this.enfoques[dato].nombre;
+        this.listaSimilitudJaccard = resultado.jaccard;
+        this.listaSimilitudCoseno = resultado.coseno;
+      });
   }
 }

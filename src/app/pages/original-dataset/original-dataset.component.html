@@ -1,106 +1,113 @@
 <div class="container">
-    <div class="row">
-        <div class="col-lg-6 offset-lg-3">
-            <div class="card-body text-center">
-                <h4 class="mt-3" align="center"><span class="titulo">{{ nombreEnfoque || "Seleccione el enfoque a consultar:"}}</span></h4>
-                <form class="mt-3" [formGroup]="formGroup">
-                    <div class="mb-3">
-                        <p-dropdown
-                            formControlName="enfoque"
-                            [options]="enfoques"
-                            optionLabel="nombre"
-                            optionValue="valor"
-                            placeholder="Seleccione un enfoque"
-                            (onChange)="obtenerDatasetOriginalEnfoque()"
-                            >
-                        </p-dropdown>
-                    </div>
-                </form>
-            </div>
-        </div>
+  <div class="row">
+    <div class="col-lg-6 offset-lg-3">
+      <div class="card-body text-center">
+        <h4 class="mt-3" align="center">
+          <span class="titulo">{{
+            nombreEnfoque || "Seleccione el enfoque a consultar:"
+          }}</span>
+        </h4>
+        <form class="mt-3" [formGroup]="formGroup">
+          <div class="mb-3">
+            <p-dropdown
+              [formControl]="this.formGroup.controls['enfoque']"
+              [options]="enfoques"
+              optionLabel="nombre"
+              optionValue="valor"
+              placeholder="Seleccione un enfoque"
+              (onChange)="this.obtenerDatasetOriginalEnfoque()"
+            >
+            </p-dropdown>
+          </div>
+        </form>
+      </div>
     </div>
-    <div *ngIf="mostrarTablas" class="row">
-        <div class="col-6">
-            <p-table
-                [columns]="cols"
-                [value]="listaSimilitudJaccard"
-                [tableStyle]="{ 'min-width': '10rem' }"
-                styleClass="p-datatable-sm"
-                [paginator]="true"
-                [rows]="10"
-                [rowsPerPageOptions]="[10, 20, 30]"
-                >
-                <ng-template pTemplate="caption">
-                    <div style="text-align: center; width: 100%;">
-                        Similitud Jaccard
-                    </div>
-                </ng-template>
-                <ng-template pTemplate="header" let-columns>
-                    <tr>
-                        <th pSortableColumn="id" style="width:20%">
-                            Documento
-                            <p-sortIcon field="id"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="porcentaje" style="width:20%">
-                            Porcentaje
-                            <p-sortIcon field="porcentaje"></p-sortIcon>
-                        </th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-row>
-                    <tr>
-                        <td>{{ row.id }}</td>
-                        <td>
-                            <p-progressBar [value]="row.porcentaje*100" [showValue]="false"></p-progressBar>
-                            {{ (row.porcentaje*100).toFixed(2) }} %
-                        </td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </div>
-        <div class="col-6">
-            <p-table
-                [columns]="cols"
-                [value]="listaSimilitudCoseno"
-                [tableStyle]="{ 'min-width': '10rem' }"
-                styleClass="p-datatable-sm"
-                [paginator]="true"
-                [rows]="10"
-                [rowsPerPageOptions]="[10, 20, 30]"
-                >
-                <ng-template pTemplate="caption">
-                    <div style="text-align: center; width: 100%;">
-                        Similitud Coseno
-                    </div>
-                </ng-template>
-                <ng-template pTemplate="header" let-columns>
-                    <tr>
-                        <th pSortableColumn="id" style="width:20%">
-                            Documento
-                            <p-sortIcon field="id"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="porcentaje" style="width:20%">
-                            Porcentaje
-                            <p-sortIcon field="porcentaje"></p-sortIcon>
-                        </th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-row>
-                    <tr>
-                        <td>{{ row.id }}</td>
-                        <td>
-                            <p-progressBar [value]="row.porcentaje*100" [showValue]="false"></p-progressBar>
-                            {{ (row.porcentaje*100).toFixed(2) }} %
-                        </td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </div>
+  </div>
+  <div *ngIf="mostrarTablas" class="row">
+    <div class="col-6">
+      <p-table
+        [columns]="cols"
+        [value]="listaSimilitudJaccard"
+        [tableStyle]="{ 'min-width': '10rem' }"
+        styleClass="p-datatable-sm"
+        [paginator]="true"
+        [rows]="10"
+        [rowsPerPageOptions]="[10, 20, 30]"
+      >
+        <ng-template pTemplate="caption">
+          <div style="text-align: center; width: 100%">Similitud Jaccard</div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th pSortableColumn="id" style="width: 20%">
+              Documento
+              <p-sortIcon field="id"></p-sortIcon>
+            </th>
+            <th pSortableColumn="porcentaje" style="width: 20%">
+              Porcentaje
+              <p-sortIcon field="porcentaje"></p-sortIcon>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-row>
+          <tr>
+            <td>{{ row.id }}</td>
+            <td>
+              <p-progressBar
+                [value]="row.porcentaje * 100"
+                [showValue]="false"
+              ></p-progressBar>
+              {{ (row.porcentaje * 100).toFixed(2) }} %
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
     </div>
+    <div class="col-6">
+      <p-table
+        [columns]="cols"
+        [value]="listaSimilitudCoseno"
+        [tableStyle]="{ 'min-width': '10rem' }"
+        styleClass="p-datatable-sm"
+        [paginator]="true"
+        [rows]="10"
+        [rowsPerPageOptions]="[10, 20, 30]"
+      >
+        <ng-template pTemplate="caption">
+          <div style="text-align: center; width: 100%">Similitud Coseno</div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th pSortableColumn="id" style="width: 20%">
+              Documento
+              <p-sortIcon field="id"></p-sortIcon>
+            </th>
+            <th pSortableColumn="porcentaje" style="width: 20%">
+              Porcentaje
+              <p-sortIcon field="porcentaje"></p-sortIcon>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-row>
+          <tr>
+            <td>{{ row.id }}</td>
+            <td>
+              <p-progressBar
+                [value]="row.porcentaje * 100"
+                [showValue]="false"
+              ></p-progressBar>
+              {{ (row.porcentaje * 100).toFixed(2) }} %
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
 </div>
-<div style="height: 4rem;">
-</div>
+<div style="height: 4rem"></div>
 <!-- Footer-->
-<footer class="py-3 bg-dark navbar fixed-bottom">
-    <div class="container px-5"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
+<footer class="py-3 bg-dark mt-auto fixed-bottom">
+  <div class="container px-5">
+    <p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p>
+  </div>
 </footer>

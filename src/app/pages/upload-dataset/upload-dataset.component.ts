@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { take } from 'rxjs';
@@ -12,6 +12,8 @@ import { CrudServiceService } from 'src/app/services/crud-service.service';
   providers: [MessageService],
 })
 export class UploadDatasetComponent implements OnInit {
+  @ViewChild('inputFile')
+  myInputVariable!: ElementRef;
   listaSimilitudJaccard: ISimilitud[] = [];
   listaSimilitudCoseno: ISimilitud[] = [];
   listaComboBox: IComboBox[] = [];
@@ -36,8 +38,8 @@ export class UploadDatasetComponent implements OnInit {
 
   construirFormulario() {
     this.formGroup = this.fb.group({
-      columna: [null, Validators.required]
-    })
+      columna: [null, Validators.required],
+    });
   }
 
   limpiarFormulario() {
@@ -47,6 +49,9 @@ export class UploadDatasetComponent implements OnInit {
     this.listaComboBox = [];
     this.listaSimilitudCoseno = [];
     this.listaSimilitudJaccard = [];
+    this.file = undefined;
+    this.myInputVariable.nativeElement.value = '';
+    this.crudService.eliminarArchivoDataset().pipe(take(1)).subscribe();
   }
 
   onFilechange(event: any) {
@@ -96,7 +101,6 @@ export class UploadDatasetComponent implements OnInit {
         this.mostrarTablas = true;
         this.listaSimilitudCoseno = resultado.coseno;
         this.listaSimilitudJaccard = resultado.jaccard;
-        //this.validarVectorDeCeros();
       });
   }
 }
