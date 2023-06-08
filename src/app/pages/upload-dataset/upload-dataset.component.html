@@ -51,6 +51,18 @@
     </div>
   </div>
   <div *ngIf="mostrarTablas" class="row">
+    <div class="row">
+      <div class="col-lg-6 offset-lg-3">
+        <textarea
+          rows="3"
+          cols="60"
+          pInputTextarea
+          [formControl]="this.formGroup.controls['definicion']"
+          [disabled]="true"
+        >
+        </textarea>
+      </div>
+    </div>
     <div class="col-6">
       <p-table
         [columns]="cols"

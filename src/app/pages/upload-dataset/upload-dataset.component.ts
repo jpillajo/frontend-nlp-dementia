@@ -39,6 +39,7 @@ export class UploadDatasetComponent implements OnInit {
   construirFormulario() {
     this.formGroup = this.fb.group({
       columna: [null, Validators.required],
+      definicion: [null, Validators.required],
     });
   }
 
@@ -101,6 +102,8 @@ export class UploadDatasetComponent implements OnInit {
         this.mostrarTablas = true;
         this.listaSimilitudCoseno = resultado.coseno;
         this.listaSimilitudJaccard = resultado.jaccard;
+        this.formGroup.controls['definicion'].setValue(resultado.definicion);
+        this.formGroup.controls['definicion'].disable();
       });
   }
 }
