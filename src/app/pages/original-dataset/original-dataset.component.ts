@@ -1,10 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  IComboBox,
-  IDataset,
-  IEnfoques,
-  ISimilitud,
-} from 'src/app/models/Documento';
+import { IComboBox, IDataset, IEnfoques } from 'src/app/models/Documento';
 import { CrudServiceService } from 'src/app/services/crud-service.service';
 import { take } from 'rxjs/operators';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
@@ -17,7 +12,6 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 export class OriginalDatasetComponent implements OnInit {
   listaSimilitudJaccard: IDataset[] = [];
   listaSimilitudCoseno: IDataset[] = [];
-  cols: any[] = [];
   mostrarTablas: boolean = false;
   formGroup: FormGroup | any;
   enfoques: IEnfoques[] = [];
@@ -29,12 +23,8 @@ export class OriginalDatasetComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.cols = [
-      { field: 'id', header: 'Documento' },
-      { field: 'porcentaje', header: 'Porcentaje' },
-    ];
     this.enfoques = [
-      { nombre: 'BIO MEDICO', valor: 0 },
+      { nombre: 'BIOMÉDICO', valor: 0 },
       { nombre: 'PSICOSOCIAL - COMUNITARIO', valor: 1 },
       { nombre: 'COTIDIANO', valor: 2 },
     ];

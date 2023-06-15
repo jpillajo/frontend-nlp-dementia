@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { URL_SERVER } from '../env';
@@ -29,5 +29,25 @@ export class CrudServiceService {
 
   eliminarArchivoDataset(): Observable<any> {
     return this.http.get(URL_SERVER + APIS_URL.EliminarArchivoDataset);
+  }
+
+  obtenerFormato(tipo:string): Observable<any> {
+    let headers = new HttpHeaders();
+    headers = headers.set('Accept', 'application/vnd.github.v3+json');
+    if (tipo == "CSV") {
+      return this.http.get(
+        'https://api.github.com/repos/jpillajo/backend-nlp-dementia/contents/assets/Formato.csv',
+        {
+          headers: headers,
+        }
+      );
+    } else {
+      return this.http.get(
+        'https://api.github.com/repos/jpillajo/backend-nlp-dementia/contents/assets/Formato.xlsx',
+        {
+          headers: headers,
+        }
+      );
+    }
   }
 }

@@ -23,9 +23,9 @@
 <!-- Features section -->
 
 <section class="py-5 border-bottom" id="features">
-  <div class="container px-5 my-5">
+  <div class="container px-5 my-2">
     <div class="row gx-5">
-      <div class="col-lg-6 mb-5 mb-lg-0">
+      <div class="col-lg-6 mb-3 mb-lg-0">
         <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3">
           <i class="bi bi-chat-left-text"></i>
         </div>
@@ -33,20 +33,20 @@
         <h2 class="h4 fw-bolder">Introducción</h2>
 
         <p>
-          El problema se debe a que en los últimos años ha existido niveles
-          altos de demencia, por lo cual es bueno saber sobre lo que opinan los
-          médicos y personas comunes, y saber su definición a que se encuentra
-          orientada, la demencia no es una enfermedad específica, sino un grupo
-          de trastornos caracterizados por el deterioro de, al menos, dos
-          funciones cerebrales, como la memoria y la razón. Los síntomas
-          incluyen olvidos, aptitudes sociales restringidas y razonamiento tan
-          limitado que interfiere en las actividades diarias. Los medicamentos y
-          la terapia pueden ayudar a controlar los síntomas. Algunas causas son
-          reversibles.
+          En varias enfermedades y patologías, la comunidad científica no ha
+          determinado de manera explícita una definición que permita tener un
+          diagnóstico acertado, como es el caso de las demencias. En forma
+          genérica, existe una divergencia de criterios al momento del
+          diagnóstico de demencia, anclada a sus ambiguas definiciones. Los
+          factores de riesgo asociados a la demencia pueden manejarse y
+          disminuir en función de los modelos de abordaje que se implementen. En
+          ese sentido, es importante analizar los relatos vinculados a demencia,
+          pues detrás de estos se puede evidenciar la estructura conceptual que
+          prevalece en los profesionales que atienden estos procesos.
         </p>
       </div>
 
-      <div class="col-lg-6 mb-5 mb-lg-0">
+      <div class="col-lg-6 mb-3 mb-lg-0">
         <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3">
           <i class="bi bi-book"></i>
         </div>
@@ -54,18 +54,15 @@
         <h2 class="h4 fw-bolder">Resumen</h2>
 
         <p>
-          El presente documento presentará una página web, donde se obtendrán
-          diferentes conceptos de demencia al ingresar estos conceptos se
-          indicará a que se orienta, en este caso existen tres tipos de
-          orientaciones las cuales son las siguientes: biomédica,
-          psicosocial-comunitaria y cotidiana. ; el usuario ingresa un concepto
-          y este indicará que término es similar, además indicará el nivel de
-          similitud entre la entrada y las taxonomías. Mediante el Jaccard y el
-          coseno vectorial. Para que este sistema funcione correctamente se ha
-          probado con definiciones externas de diferentes textos científicos,
-          esto se hizo para que la herramienta funcione correctamente. La
-          interfaz es amigable, muy intuitiva y fácil de navegar, ya que fue
-          diseñada para todo tipo de usuarios.
+          Esta página web determina la taxonomía de una definición de demencia
+          mediante un modelo de procesamiento natural de lenguaje, que toma como
+          entrada una definición a través de tipeo manual o carga de documento
+          en formato .csv. El modelo hace uso de dos métricas de similitud:
+          Jaccard y Coseno, para presentar, a través de porcentajes, el nivel de
+          pertenencia de una definición de demencia hacia los tres enfoques
+          propuestos en la taxonomía. La página también presenta la taxonomía de
+          cada una de las definiciones del Dataset original que sirvieron como
+          base para el diseño y programación del modelo propuesto.
         </p>
       </div>
     </div>
@@ -73,9 +70,39 @@
 </section>
 
 <!-- Footer -->
-
-<footer class="py-3 bg-dark mt-auto">
+<footer class="py-2 bg-light mt-auto">
+  <div class="container text-center">
+    <div class="row align-items-center">
+      <div class="col-6 col-sm-5 col-md-4 col-lg-3">
+        <img
+          class="logo-UPS"
+          src="../../../assets/logo-UPS.png"
+          alt="Universidad Politécnica Salesiana"
+        />
+      </div>
+      <br />
+      <div class="col-2 col-sm-3 col-md-5 col-lg-7">
+        <a
+          href="https://github.com/jpillajo/backend-nlp-dementia"
+          target="_blank"
+        >
+          <img
+            class="url-repositorio"
+            src="../../../assets/logo-github.png"
+            alt="Repositorio de Github"
+          />
+        </a>
+      </div>
+      <div class="col-4 col-sm-4 col-md-3 col-lg-2">
+        <h5 style="font-size: 100%">Ing. Diego Vallejo</h5>
+        <h5 style="font-size: 100%">Daniel Mariño</h5>
+        <h5 style="font-size: 100%">Jhony Pillajo</h5>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- <footer class="py-3 bg-dark mt-auto">
   <div class="container px-5">
     <p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p>
   </div>
-</footer>
+</footer> -->

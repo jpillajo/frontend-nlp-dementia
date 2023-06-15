@@ -6,15 +6,15 @@ import { OriginalDatasetComponent } from './pages/original-dataset/original-data
 import { UploadDatasetComponent } from './pages/upload-dataset/upload-dataset.component';
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent},
-  { path: 'consultar-definicion', component: QueryDementiaComponent},
-  { path: 'dataset-original', component: OriginalDatasetComponent},
-  { path: 'subir-dataset', component: UploadDatasetComponent},
-  { path:'**', redirectTo: 'home', pathMatch: 'full' }
+  { path: 'home', component: HomeComponent },
+  { path: 'consultar-definicion', component: QueryDementiaComponent },
+  { path: 'dataset-original', component: OriginalDatasetComponent },
+  { path: 'subir-dataset', component: UploadDatasetComponent },
+  { path: '**', redirectTo: 'home', pathMatch: 'full' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

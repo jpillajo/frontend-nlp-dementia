@@ -17,12 +17,18 @@ import { ToastModule } from 'primeng/toast';
 import { DropdownModule } from 'primeng/dropdown';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ProgressBarModule } from 'primeng/progressbar';
+import { TabMenuModule } from 'primeng/tabmenu';
+import { PaginatorModule } from 'primeng/paginator';
+import { SplitButtonModule } from 'primeng/splitbutton';
 
 //PAGES
 import { HomeComponent } from './pages/home/home.component';
 import { QueryDementiaComponent } from './pages/query-dementia/query-dementia.component';
 import { OriginalDatasetComponent } from './pages/original-dataset/original-dataset.component';
 import { UploadDatasetComponent } from './pages/upload-dataset/upload-dataset.component';
+import { UtilService } from './services/util.service';
+import { MessageService } from 'primeng/api';
+import { CrudServiceService } from './services/crud-service.service';
 
 @NgModule({
   declarations: [
@@ -47,9 +53,12 @@ import { UploadDatasetComponent } from './pages/upload-dataset/upload-dataset.co
     ToastModule,
     DropdownModule,
     FileUploadModule,
-    ProgressBarModule
+    ProgressBarModule,
+    TabMenuModule,
+    PaginatorModule,
+    SplitButtonModule
   ],
-  providers: [],
+  providers: [UtilService, MessageService, CrudServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

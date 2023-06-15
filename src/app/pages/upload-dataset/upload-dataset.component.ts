@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { take } from 'rxjs';
 import { IComboBox, ISimilitud } from 'src/app/models/Documento';
 import { CrudServiceService } from 'src/app/services/crud-service.service';
@@ -20,11 +20,23 @@ export class UploadDatasetComponent implements OnInit {
   formGroup: FormGroup | any;
   mostrarComboBoxColumnas: boolean = false;
   mostrarTablas: boolean = false;
-  cols = [
-    { field: 'enfoque', header: 'Enfoque' },
-    { field: 'porcentaje', header: 'Porcentaje' },
-  ];
   file: File | undefined;
+  opcionesArchivo: MenuItem | any = [
+    {
+      label: 'CSV',
+      icon: 'pi pi-file',
+      command: () => {
+        this.descargarFormato('CSV');
+      },
+    },
+    {
+      label: 'EXCEL',
+      icon: 'pi pi-file-excel',
+      command: () => {
+        this.descargarFormato('EXCEL');
+      },
+    },
+  ];
 
   constructor(
     private fb: FormBuilder,
@@ -61,7 +73,11 @@ export class UploadDatasetComponent implements OnInit {
 
   subirArchivo() {
     if (this.file) {
-      if (this.file.type == 'text/csv') {
+      if (
+        this.file.type == 'text/csv' ||
+        this.file.type ==
+          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      ) {
         let formParams = new FormData();
         formParams.append('file', this.file);
         this.crudService.subirArchivoCSV(formParams).subscribe((resultado) => {
@@ -77,7 +93,7 @@ export class UploadDatasetComponent implements OnInit {
         this.messageService.add({
           severity: 'warn',
           summary: 'Formato incorrecto',
-          detail: 'Debe subir un archivo CSV',
+          detail: 'Debe subir un archivo CSV o XLSX (Excel)',
         });
       }
     } else {
@@ -104,6 +120,24 @@ export class UploadDatasetComponent implements OnInit {
         this.listaSimilitudJaccard = resultado.jaccard;
         this.formGroup.controls['definicion'].setValue(resultado.definicion);
         this.formGroup.controls['definicion'].disable();
+      });
+  }
+
+  descargarFormato(tipo: string) {
+    this.crudService
+      .obtenerFormato(tipo)
+      .pipe(take(1))
+      .subscribe((response) => {
+        var dlnk = document.createElement('a');
+        const url = 'data:application/octet-stream;base64,' + response.content;
+        dlnk.href = url;
+        if (tipo == 'CSV') {
+          dlnk.setAttribute('download', 'Formato.csv');
+        } else {
+          dlnk.setAttribute('download', 'Formato.xlsx');
+        }
+        document.body.appendChild(dlnk);
+        dlnk.click();
       });
   }
 }

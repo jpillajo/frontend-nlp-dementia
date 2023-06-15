@@ -4,20 +4,17 @@ import { IDocumento, ISimilitud } from 'src/app/models/Documento';
 import { take } from 'rxjs/operators';
 import { CrudServiceService } from 'src/app/services/crud-service.service';
 import { MessageService } from 'primeng/api';
+import { UtilService } from 'src/app/services/util.service';
 
 @Component({
   selector: 'app-query-dementia',
   templateUrl: './query-dementia.component.html',
   styles: [],
-  providers: [MessageService],
+  providers: [MessageService, UtilService],
 })
 export class QueryDementiaComponent implements OnInit {
   listaSimilitudJaccard: ISimilitud[] = [];
   listaSimilitudCoseno: ISimilitud[] = [];
-  cols = [
-    { field: 'enfoque', header: 'Enfoque' },
-    { field: 'porcentaje', header: 'Porcentaje' },
-  ];
   mostrarTablas: boolean = false;
 
   formGroup: FormGroup | any;
@@ -25,7 +22,8 @@ export class QueryDementiaComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private crudService: CrudServiceService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    public utilService: UtilService
   ) {}
 
   ngOnInit() {
