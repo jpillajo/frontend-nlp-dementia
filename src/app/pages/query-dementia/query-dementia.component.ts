@@ -50,7 +50,7 @@ export class QueryDementiaComponent implements OnInit {
     this.listaSimilitudCoseno.forEach((y) => {
       acumuluadorCoseno = acumuluadorCoseno + Number(y['porcentaje']);
     });
-    if (acumuluadorCoseno != 0 && acumuluadorJaccard != 0) {
+    if (acumuluadorCoseno != 0 || acumuluadorJaccard != 0) {
       this.mostrarTablas = true;
     } else {
       this.messageService.add({
