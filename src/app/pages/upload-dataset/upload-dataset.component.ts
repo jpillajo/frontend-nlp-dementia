@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MessageService } from 'primeng/api';
 import { take } from 'rxjs';
 import { IComboBox, ISimilitud } from 'src/app/models/Documento';
 import { CrudServiceService } from 'src/app/services/crud-service.service';
@@ -21,22 +21,6 @@ export class UploadDatasetComponent implements OnInit {
   mostrarComboBoxColumnas: boolean = false;
   mostrarTablas: boolean = false;
   file: File | undefined;
-  opcionesArchivo: MenuItem | any = [
-    {
-      label: 'CSV',
-      icon: 'pi pi-file',
-      command: () => {
-        this.descargarFormato('CSV');
-      },
-    },
-    {
-      label: 'EXCEL',
-      icon: 'pi pi-file-excel',
-      command: () => {
-        this.descargarFormato('EXCEL');
-      },
-    },
-  ];
 
   constructor(
     private fb: FormBuilder,
@@ -74,26 +58,49 @@ export class UploadDatasetComponent implements OnInit {
   subirArchivo() {
     if (this.file) {
       if (
-        this.file.type == 'text/csv' ||
+        this.file.type == 'text/csv' /*||
         this.file.type ==
-          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'*/
       ) {
         let formParams = new FormData();
         formParams.append('file', this.file);
-        this.crudService.subirArchivoCSV(formParams).subscribe((resultado) => {
-          this.mostrarComboBoxColumnas = true;
-          this.listaComboBox = resultado;
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Archivo cargado',
-            detail: 'El archivo se ha cargado correctamente',
-          });
-        });
+        this.crudService.subirArchivoCSV(formParams).subscribe(
+          (resultado) => {
+            if (resultado.length == 0) {
+              this.messageService.add({
+                severity: 'warn',
+                summary: 'Archivo vacío',
+                detail: 'El archivo cargado se encuentra vacío',
+              });
+            } else if (resultado.error) {
+              this.messageService.add({
+                severity: 'warn',
+                summary: 'Sin formato',
+                detail: resultado.error,
+              });
+            } else {
+              this.mostrarComboBoxColumnas = true;
+              this.listaComboBox = resultado;
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Archivo cargado',
+                detail: 'El archivo se ha cargado correctamente',
+              });
+            }
+          },
+          (error) => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Servidor no responde',
+              detail: 'El servidor a dejado de funcionar',
+            });
+          }
+        );
       } else {
         this.messageService.add({
           severity: 'warn',
           summary: 'Formato incorrecto',
-          detail: 'Debe subir un archivo CSV o XLSX (Excel)',
+          detail: 'Debe subir un archivo CSV',
         });
       }
     } else {
@@ -123,7 +130,25 @@ export class UploadDatasetComponent implements OnInit {
       });
   }
 
-  descargarFormato(tipo: string) {
+  // descargarFormato(tipo: string) {
+  //   this.crudService
+  //     .obtenerFormato(tipo)
+  //     .pipe(take(1))
+  //     .subscribe((response) => {
+  //       var dlnk = document.createElement('a');
+  //       const url = 'data:application/octet-stream;base64,' + response.content;
+  //       dlnk.href = url;
+  //       if (tipo == 'CSV') {
+  //         dlnk.setAttribute('download', 'Formato.csv');
+  //       } else {
+  //         dlnk.setAttribute('download', 'Formato.xlsx');
+  //       }
+  //       document.body.appendChild(dlnk);
+  //       dlnk.click();
+  //     });
+  // }
+  descargarFormato() {
+    const tipo = 'CSV';
     this.crudService
       .obtenerFormato(tipo)
       .pipe(take(1))

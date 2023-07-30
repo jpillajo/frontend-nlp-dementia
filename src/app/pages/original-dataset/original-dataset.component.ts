@@ -3,11 +3,13 @@ import { IComboBox, IDataset, IEnfoques } from 'src/app/models/Documento';
 import { CrudServiceService } from 'src/app/services/crud-service.service';
 import { take } from 'rxjs/operators';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-original-dataset',
   templateUrl: './original-dataset.component.html',
   styles: [],
+  providers: [MessageService],
 })
 export class OriginalDatasetComponent implements OnInit {
   listaSimilitudJaccard: IDataset[] = [];
@@ -19,7 +21,8 @@ export class OriginalDatasetComponent implements OnInit {
 
   constructor(
     private crudService: CrudServiceService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private messageService: MessageService
   ) {}
 
   ngOnInit() {
@@ -46,12 +49,21 @@ export class OriginalDatasetComponent implements OnInit {
     this.crudService
       .obtenerDataset(dto)
       .pipe(take(1))
-      .subscribe((resultado) => {
-        this.mostrarTablas = true;
-        this.nombreEnfoque =
-          'Está revisando el enfoque ' + this.enfoques[dato].nombre;
-        this.listaSimilitudJaccard = resultado.jaccard;
-        this.listaSimilitudCoseno = resultado.coseno;
-      });
+      .subscribe(
+        (resultado) => {
+          this.mostrarTablas = true;
+          this.nombreEnfoque =
+            'Está revisando el enfoque ' + this.enfoques[dato].nombre;
+          this.listaSimilitudJaccard = resultado.jaccard;
+          this.listaSimilitudCoseno = resultado.coseno;
+        },
+        (error) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Servidor no responde',
+            detail: 'El servidor a dejado de funcionar',
+          });
+        }
+      );
   }
 }

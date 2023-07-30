@@ -14,18 +14,24 @@
             class="form-control"
             type="file"
             id="formFile"
-            accept=".csv, .xlsx"
+            accept=".csv"
             #inputFile
           />
         </div>
         <div class="py-1 col-md-1 col-lg-1 offset-sm-3 offset-md-0">
-          <p-splitButton
+          <!-- <p-splitButton
             icon="pi pi-download"
             label="Formato"
             styleClass="p-button-sm p-button-raised p-button-success"
             [model]="opcionesArchivo"
           >
-          </p-splitButton>
+          </p-splitButton> -->
+          <p-button
+            label="Formato"
+            icon="pi pi-download"
+            styleClass="p-button-sm p-button-raised p-button-success"
+            (click)="descargarFormato()"
+          ></p-button>
         </div>
       </div>
       <div class="py-2">
@@ -140,29 +146,34 @@
   <div class="position-relative">
     <div class="position-absolute py-3 ms-3">
       <a href="https://www.ups.edu.ec/" target="_blank">
-        <img
+        <!-- <img
           class="logo-UPS"
           src="../../../assets/logo-UPS.png"
+          alt="Universidad Politécnica Salesiana"
+        /> -->
+        <img
+          class="logo-UPS"
+          src="./assets/logo-UPS.png"
           alt="Universidad Politécnica Salesiana"
         />
       </a>
     </div>
     <div class="position-absolute top-50 end-0 py-3 me-3">
-      <a
-        href="https://github.com/jpillajo/backend-nlp-dementia"
-        target="_blank"
-      >
-        <img
+      <a href="https://github.com/jpillajo/nlp-dementia" target="_blank">
+        <!-- <img
           class="url-repositorio"
           src="../../../assets/logo-github.png"
+          alt="Repositorio de Github"
+        /> -->
+        <img
+          class="url-repositorio"
+          src="./assets/logo-github.png"
           alt="Repositorio de Github"
         />
       </a>
     </div>
   </div>
 </footer>
-
-
 
 <!-- <footer class="py-2 bg-light mt-auto fixed-bottom">
   <div class="container text-center">

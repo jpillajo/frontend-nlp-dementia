@@ -1,1 +1,1 @@
-export const URL_SERVER = 'http://localhost:5000';
+export const URL_SERVER = 'https://jhonypillajo.pythonanywhere.com';

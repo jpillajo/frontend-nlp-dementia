@@ -78,11 +78,21 @@ export class QueryDementiaComponent implements OnInit {
       this.crudService
         .consultarDefinicion(dto)
         .pipe(take(1))
-        .subscribe((resultado) => {
-          this.listaSimilitudCoseno = resultado.coseno;
-          this.listaSimilitudJaccard = resultado.jaccard;
-          this.validarVectorDeCeros();
-        });
+        .subscribe(
+          (resultado) => {
+            this.listaSimilitudCoseno = resultado.coseno;
+            this.listaSimilitudJaccard = resultado.jaccard;
+            this.validarVectorDeCeros();
+          },
+          (error) => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Servidor no responde',
+              detail:
+                'El servidor a dejado de funcionar',
+            });
+          }
+        );
     }
   }
 }
